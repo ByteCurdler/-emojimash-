@@ -1,43 +1,85 @@
 stack based lang
 
 format:
-(regex)
+(format)
     (details)
     (destroys used values? ⌫ does/✓ does not/⌦ other)
 end format
 
-🔢([0-9]+)🔢
-    add \1 as a number to the stack
-📜((?:[^📜]|❕[❕📜]|)*)📜
-    add \1 as is to the stack (❕ is escape char):
+🔢(num)🔢
+    add <num> as an integer to the stack
+🔤(string)🔤
+    add <string> as a string to the stack (❕ is escape char):
         ❕❕: literal ❕
-        ❕📜: literal 📜
-🧮(⊕|⊖|⊗|⊘)
-    maths (top first):
-        ⊕: addition (2 items)
-        ⊖: subtraction (2 items)
-        ⊗: multiplication (2 items)
-        ⊘: division (2 items)
-        ⊛: exponent (2 items)
-        ⊜: equal (2 items)
-        ⊝: negative (1 item)
-        ⊚: not (1 item)
+        ❕🔤: literal 🔤
+🗹
+🗷
+🚫
+    add True/False/None to the stack
+🧮(op)
+maths (top first, eg. 🔢2🔢🔢1🔢🧮➖ is 1):
+        ➕: addition (2 items)
+        ➖: subtraction (2 items)
+        ✖️: multiplication (2 items)
+        ➗: division (2 items)
+        ⤴️: exponent (2 items)
+        🟰 or =: equal (2 items)
+        🔄: negative (1 item)
+        ‼️: not (1 item)
+        🔢: make integer from string (1 item)
+        🔤: make string from anything (1 item)
+        ❓: make bool from anything (1 item)
+        📝: make list from string/dict(results in keys) (1 item)
     (⌫)
 
 📝
-    take top of stack (N) and make a list with the top N elements (⌫)
+    take top of stack (N) if int and make a list with the top N elements (top last)
+    (⌫)
 📙
     if the top two items on the stack are lists, make a dictionary where
         the top list is keys and second top is values (⌫)
 🔍
-    take top of stack (N) and get item N in list/dict on stack (⌦ destroys index but not list/dict)
+    take top of stack (N) and get item/index N in list/dict/string on stack next
+    (⌦: destroys index but not list/dict/string)
 🖨️
-    print whatever is on top of the stack (✓)
-🕳
+    print whatever is on top of the stack (w/o newline) (✓)
+📠
+    print whatever is on top of the stack (w/ newline) (✓)
+🗑
     trash top item of stack
-[\n\t ]
+whitespace
     No-op
-💬[^💬]*💬
+💬(text)💬
     Comment
-📛([^📛])📛
-    Label \1
+🏷️(label)🏷️
+    Label <label>
+🎠(label)🎠
+    Goto <label>
+🚀(label)🚀
+    Goto <label> if top of stack is truthy (not 0/""/[]/{})
+    (⌫)
+⌨️
+    Push a line of input from the user onto the stack, minus the newline
+📏
+    Push the length of the list/string on top of the stack
+    (✓)
+🎉
+    Pop the first value off the list/string on the top of the stack to the stack
+📚
+    Put the stack on the stack
+📝
+    take top of stack (N) and put top of stack into list/dict below top at index N
+    (⌦: destroys index and item but not list/dict)
+🔄
+    take top of stack (N) and take the Nth from the top of the stack
+        and swap it with the top of the stack
+🐎(label)🐎
+    Call a function at <label>
+    example:
+        🐎asd🐎
+
+🛑
+    Return from a function call, or if not in a function, halt the program
+🖍️
+    take top of stack (N) and erase top of stack's list/dict at index N
+    (⌦: destroys index but not list/dict)
