@@ -1,0 +1,43 @@
+stack based lang
+
+format:
+(regex)
+    (details)
+    (destroys used values? ⌫ does/✓ does not/⌦ other)
+end format
+
+🔢([0-9]+)🔢
+    add \1 as a number to the stack
+📜((?:[^📜]|❕[❕📜]|)*)📜
+    add \1 as is to the stack (❕ is escape char):
+        ❕❕: literal ❕
+        ❕📜: literal 📜
+🧮(⊕|⊖|⊗|⊘)
+    maths (top first):
+        ⊕: addition (2 items)
+        ⊖: subtraction (2 items)
+        ⊗: multiplication (2 items)
+        ⊘: division (2 items)
+        ⊛: exponent (2 items)
+        ⊜: equal (2 items)
+        ⊝: negative (1 item)
+        ⊚: not (1 item)
+    (⌫)
+
+📝
+    take top of stack (N) and make a list with the top N elements (⌫)
+📙
+    if the top two items on the stack are lists, make a dictionary where
+        the top list is keys and second top is values (⌫)
+🔍
+    take top of stack (N) and get item N in list/dict on stack (⌦ destroys index but not list/dict)
+🖨️
+    print whatever is on top of the stack (✓)
+🕳
+    trash top item of stack
+[\n\t ]
+    No-op
+💬[^💬]*💬
+    Comment
+📛([^📛])📛
+    Label \1
