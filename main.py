@@ -49,6 +49,8 @@ class chars:
     callfunc = "🐸"
     return_ = "🛑"
     eraseitem = "🖍"
+    globaldict = "🌎"
+    append = "🧱"
 
 
 def lexify(text):
@@ -81,7 +83,8 @@ def lexify(text):
                 code.append(("math", op))
         elif symname in ("makelist", "makedict", "getitem", "copy", "length",
                          "stack", "print", "print_nl", "delete", "input",
-                         "pop", "setitem", "swap", "return", "eraseitem"):
+                         "pop", "setitem", "swap", "return", "eraseitem",
+                         "globaldict", "append"):
             code.append((symname,))
         elif symname in ("comment", "label", "goto", "gotoif", "number",
                          "callfunc"):
@@ -111,119 +114,81 @@ def run(code, labels):
     pc = 0
     stack = []
     funcstack = []
+    globaldict = {}
     while pc < len(code):
         cmd, *args = code[pc]
         if cmd == "push":
             stack.append(args[0])
-        if cmd == "math":
+        elif cmd == "math":
             op, numargs = chars.math_ops[args[0]]
             items = [stack.pop() for _ in range(numargs)][::-1]
             stack.append(op(*items))
-        if cmd == "list":
+        elif cmd == "makelist":
             if type(stack[-1]) is int:
                 num = stack.pop()
                 stack.append([stack.pop() for _ in range(num)][::-1])
-        if cmd == "dict":
+        elif cmd == "makedict":
             if type(stack[-1]) is list and type(stack[-2]) is list:
                 stack.append(dict(zip(stack.pop(), stack.pop())))
-        if cmd == "getitem":
+        elif cmd == "getitem":
             ind = stack.pop()
             stack.append(stack[-1][ind])
-        if cmd == "print":
+        elif cmd == "print":
             print(stack[-1], end="")
-        if cmd == "print_nl":
+        elif cmd == "print_nl":
             print(stack[-1])
-        if cmd == "delete":
+        elif cmd == "delete":
             stack.pop()
-        if cmd == "goto":
+        elif cmd == "goto":
             pc = labels[args[0]]-1
-        if cmd == "gotoif":
+        elif cmd == "gotoif":
             if stack.pop():
                 pc = labels[args[0]]-1
-        if cmd == "copy":
+        elif cmd == "copy":
             stack.append(copy.deepcopy(stack[-1]))
-        if cmd == "input":
+        elif cmd == "input":
             stack.append(input())
-        if cmd == "length":
+        elif cmd == "length":
             stack.append(len(stack[-1]))
-        if cmd == "pop":
+        elif cmd == "pop":
             if type(stack[-1]) is str:
                 stack.append(stack[-1][0])
                 stack[-2] = stack[-2][1:]
             else:
                 stack.append(stack[-1].pop(0))
-        if cmd == "stack":
+        elif cmd == "stack":
             stack.append(copy.deepcopy(stack))
-        if cmd == "setitem":
+        elif cmd == "setitem":
             ind = stack.pop()
             stack[-1][ind] = stack.pop()
-        if cmd == "swap":
+        elif cmd == "swap":
             N = stack.pop()
             stack[-N], stack[-1] = stack[-1], stack[-N]
-        if cmd == "callfunc":
+        elif cmd == "callfunc":
             funcstack.append(pc)
             pc = labels[args[0]]-1
-        if cmd == "return":
+        elif cmd == "return":
             if funcstack:
                 pc = funcstack.pop()
             else:
                 return
-        if cmd == "eraseitem":
+        elif cmd == "eraseitem":
             ind = stack.pop()
             del stack[-1][ind]
+        elif cmd == "globaldict":
+            stack.append(globaldict)
+        elif cmd == "append":
+            item = stack.pop()
+            stack[-1].append(item)
         pc += 1
 
 
-eraseitem = "🖍"
-
-# code = "🔢123🔢📠🔢2🔢🧮➕📠️🗑💬text📜wahoo📜📠️"
-️  # code = """
-# 🔢5🔢🏷️🏷📠🔢🏷➖📋🚀🧮🚀
-# """
-# code = """
-# 🔢5🔢🔢2🔢🧮➕
-# 🔢5🔢🔢2🔢🧮➖
-# 🔢5🔢🔢2🔢🧮✖
-# 🔢5🔢🔢2🔢🧮➗
-# 🔢5🔢🔢2🔢🧮⚙
-# 🔢5🔢🔢2🔢🧮⤴️
-️  # 🔢5🔢🔢2🔢🧮＝
-# 🔢5🔢🧮🔄
-# 🔢5🔢🧮‼️
-️  # 🔤50🔤🧮🔢
-# 🔢5🔢🧮🔤
-# 🗹🧮🔤
-# 📚🧮🔤
-# 🔢5🔢🧮❓
-# 📚🧮❓
-# 🔤🔤🧮❓
-# 🔢0🔢📜🧮❓
-# 🔤🎉hello🎉🔤🧮📜
-# 📚
-# 🏷🏷️🏷#     🎉
-#     📠
-#     🗑
-#     📏
-# 🚀📚🚀
-# """
-# code = """
-# 🔤You did "🔤
-# 🔤input> 🔤🐸🖨⌨🐸
-# 🔤"🔤
-# 🧮➕🧮➕📠
-#
-# 🛑
-# 🏷⌨🏷️🏷🖨🗑⌨
-# 🛑
-# """
-code = """
-🔢1🔢 🔢9🔢 🏷🔄🏷 🗑
-cp0 P# " " P1 0d1
-+x cp0 0d11 -x
-GotoIf(for pop pop
-"""
+if len(sys.argv) != 2:
+    print(f"usage: {sys.argv[0]} or {sys.argv[0]} <file>")
+    sys.exit(1)
+elif len(sys.argv) == 1:
+    pass  # TODO: REPL
+code = open(sys.argv[1]).read()
 lex = lexify(code)
-# print(lex)
-run(*lex)
 # print(lex)
 run(*lex)
