@@ -1,0 +1,78 @@
+💬Twelve Days of Christmas💬
+💬https://rosettacode.org/wiki/The_Twelve_Days_of_Christmas💬
+
+💬Load global dictionary💬
+🌎
+
+💬Push these twelve to the stack...💬
+🔤And a partridge in a pear tree🔤 🔤Two turtle doves🔤 🔤Three french hens🔤
+🔤Four calling birds🔤 🔤Five golden rings🔤 🔤Six geese a-laying🔤
+🔤Seven swans a-swimming🔤 🔤Eight maids a-milking🔤 🔤Nine ladies dancing🔤
+🔤Ten lords a-leaping🔤 🔤Eleven pipers piping🔤 🔤Twelve drummers drumming🔤
+💬...make a list with them...💬
+🔢12🔢📜
+💬...and put it in the global dictionary with the key 🎁 💬
+🔤🎁🔤📝
+💬Push these twelve to the stack...💬
+🔤first🔤 🔤second🔤 🔤third🔤 🔤fourth🔤 🔤fifth🔤 🔤sixth🔤
+🔤seventh🔤 🔤eighth🔤 🔤ninth🔤 🔤tenth🔤 🔤eleventh🔤 🔤twelfth🔤
+💬...make a list with them...💬
+🔢12🔢📜
+💬...and put it in the global dictionary with the key 🔢💬
+🔤🔢🔤📝
+💬Remove the global dictionary from the stack for now💬
+🗑
+💬Start the counter💬
+🔢0🔢
+💬And a loop💬
+🏷🎄🏷
+        💬Print "On the "💬
+        🔤On the 🔤🖨🗑
+        💬Print the "Nth" string:💬
+        📋                                  💬Copy the counter for later💬
+        🌎                                  💬Retreive the global dictionary...💬
+          🔤🔢🔤🔍                          💬...and get it's key 🔢 (a list)💬
+                  🔢2🔢🔄                   💬Swap the global dictionary to the top of the stack...💬
+                         🗑                 💬..and trash it💬
+                           🔢2🔢🔄          💬Swap the copied counter to the top of the stack...💬
+                                  🔍        💬...and use it to index the list💬
+                                    🖨      💬Print it💬
+                                      🗑🗑  💬Clean up💬
+        💬Print💬
+        🔤 day of Christmas🔤📠🗑
+        🔤My true love gave to me:🔤📠🗑
+        💬If the counter is 0, go to 🏷1🏷💬
+        📋🔢0🔢🧮＝🚀1🚀
+        💬Copy the counter...💬
+        📋
+        💬...for this sub-loop💬
+        🏷💝🏷
+            💬Print the "X y's z'ing" using the same process as before💬
+            📋🌎🔤🎁🔤🔍🔢2🔢🔄🗑🔢2🔢🔄🔍📠🗑🗑
+            💬Decrement the counter💬
+            🔢1🔢🧮➖
+            💬If it's not -1...💬
+            📋🔢-1🔢🧮＝🧮‼
+        💬...loop back to 🏷💝🏷💬
+        🚀💝🚀
+        💬Trash the sub-loop counter💬
+        🗑
+        💬Skip 🏷1🏷 by going to 🏷🌲🏷💬
+        🎠🌲🎠
+        💬Special case💬
+        🏷1🏷
+            💬Print💬
+            🔤A partridge in a pear tree🔤📠🗑
+        🏷🌲🏷
+        💬Increment counter💬
+        🔢1🔢🧮➕
+        💬If it's 12 now, go to 🏷🛑🏷💬
+        📋🔢12🔢🧮＝🚀🛑🚀
+        💬Print a blank line💬
+        🔤🔤📠🗑
+🎠🎄🎠
+🏷🛑🏷
+💬Delete counter💬
+🗑
+💬Stop execution💬
+🛑
