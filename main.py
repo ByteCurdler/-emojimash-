@@ -184,7 +184,7 @@ def run(code, labels):
 
 
 if len(sys.argv) != 2:
-    print(f"usage: {sys.argv[0]} or {sys.argv[0]} <file>")
+    print(f"usage: {sys.argv[0]} <file>")
     sys.exit(1)
 elif len(sys.argv) == 1:
     pass  # TODO: REPL
