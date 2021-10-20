@@ -21,6 +21,11 @@ class chars:
         "⁺": (operator.pow, 2),
         "🟰": (operator.eq, 2),
         "＝": (operator.eq, 2),
+        "⏪": (operator.lt, 2),
+        "⏩": (operator.gt, 2),
+        "⏮️": (operator.le, 2),
+        "⏭️": (operator.ge, 2),
+        "≠": (operator.ne, 2),
         "🔄": (operator.neg, 1),
         "‼": (operator.not_, 1),
         "🔢": (int, 1),
@@ -45,7 +50,7 @@ class chars:
     pop = "🎉"
     stack = "📚"
     setitem = "📝"
-    swap = "🔄"
+    swap = "🔀"
     callfunc = "🐸"
     return_ = "🛑"
     eraseitem = "🖍"

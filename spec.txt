@@ -24,6 +24,10 @@ maths (top first, eg. 🔢2🔢🔢1🔢🧮➖ is 1):
         ➗: division (2 items)
         ⤴: exponent (2 items)
         🟰 or =: equal (2 items)
+        ⏪: less than (2 items)
+        ⏩: greater than (2 items)
+        ⏮️: less than or equal (2 items)
+        ⏭️: greater than or equal (2 items)
         🔄: negative (1 item)
         ‼: not (1 item)
         🔢: make integer from string (1 item)
@@ -73,7 +77,7 @@ whitespace
 📝
     take top of stack (N) and put top of stack into list/dict below top at index N
     (⌦: destroys index and item but not list/dict)
-🔄
+🔀
     take top of stack (N) and take the Nth from the top of the stack
         and swap it with the top of the stack
 🐎(label)🐎

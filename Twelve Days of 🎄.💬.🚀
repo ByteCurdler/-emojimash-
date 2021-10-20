@@ -32,9 +32,9 @@
         📋                                  💬Copy the counter for later💬
         🌎                                  💬Retreive the global dictionary...💬
           🔤🔢🔤🔍                          💬...and get it's key 🔢 (a list)💬
-                  🔢2🔢🔄                   💬Swap the global dictionary to the top of the stack...💬
+                  🔢2🔢🔀                   💬Swap the global dictionary to the top of the stack...💬
                          🗑                 💬..and trash it💬
-                           🔢2🔢🔄          💬Swap the copied counter to the top of the stack...💬
+                           🔢2🔢🔀          💬Swap the copied counter to the top of the stack...💬
                                   🔍        💬...and use it to index the list💬
                                     🖨      💬Print it💬
                                       🗑🗑  💬Clean up💬
@@ -48,7 +48,7 @@
         💬...for this sub-loop💬
         🏷💝🏷
             💬Print the "X y's z'ing" using the same process as before💬
-            📋🌎🔤🎁🔤🔍🔢2🔢🔄🗑🔢2🔢🔄🔍📠🗑🗑
+            📋🌎🔤🎁🔤🔍🔢2🔢🔀🗑🔢2🔢🔀🔍📠🗑🗑
             💬Decrement the counter💬
             🔢1🔢🧮➖
             💬If it's not -1...💬
