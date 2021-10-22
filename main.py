@@ -23,8 +23,8 @@ class chars:
         "＝": (operator.eq, 2),
         "⏪": (operator.lt, 2),
         "⏩": (operator.gt, 2),
-        "⏮️": (operator.le, 2),
-        "⏭️": (operator.ge, 2),
+        "⏮": (operator.le, 2),
+        "⏭": (operator.ge, 2),
         "≠": (operator.ne, 2),
         "🔄": (operator.neg, 1),
         "‼": (operator.not_, 1),
@@ -86,6 +86,9 @@ def lexify(text):
             op = inp.pop(0)
             if op in chars.math_ops:
                 code.append(("math", op))
+            else:
+                print(f"error: unknown math op '{op}'")
+                sys.exit()
         elif symname in ("makelist", "makedict", "getitem", "copy", "length",
                          "stack", "print", "print_nl", "delete", "input",
                          "pop", "setitem", "swap", "return", "eraseitem",
