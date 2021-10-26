@@ -12,6 +12,9 @@ end format
     add <string> as a string to the stack (❕ is escape char):
         ❕❕: literal ❕
         ❕🔤: literal 🔤
+        ❕↩: newline
+        ❕➡: tab
+        ❕[newline]: escapes newline
 🗹
 🗷
 🚫

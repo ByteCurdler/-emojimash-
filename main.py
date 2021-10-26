@@ -10,6 +10,13 @@ class chars:
     false = "🗷"
     null = "🚫"
     string_escape = "❕"
+    string_escapes = {
+        "❕": "❕",
+        "🔤": "🔤",
+        "↩": "\n",
+        "➡": "\t",
+        "\n": "",
+    }
     math = "🧮"
     math_ops = {
         "➕": (operator.add, 2),
@@ -44,7 +51,7 @@ class chars:
     goto = "🎠"
     gotoif = "🚀"
     copy = "📋"
-    no_op = "\n\t \uFe0F"  # Fe0F == Variation Selector-16 (makes emoji)
+    no_op = "\n\t "
     input = "⌨"
     length = "📏"
     pop = "🎉"
@@ -75,8 +82,8 @@ def lexify(text):
             while (char := inp.pop(0)) != chars.string:
                 if char == chars.string_escape:
                     char2 = inp.pop(0)
-                    if char2 in (chars.string, chars.string_escape):
-                        buffer += char2
+                    if char2 in chars.string_escapes:
+                        buffer += chars.string_escapes[char2]
                     else:
                         buffer += char + char2
                 else:
@@ -196,7 +203,10 @@ if len(sys.argv) != 2:
     sys.exit(1)
 elif len(sys.argv) == 1:
     pass  # TODO: REPL
-code = open(sys.argv[1]).read()
+if sys.argv[1] == "-":
+    code = sys.stdin.read()
+else:
+    code = open(sys.argv[1]).read()
 lex = lexify(code)
 # print(lex)
 run(*lex)
